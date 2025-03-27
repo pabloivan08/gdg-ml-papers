@@ -20,10 +20,10 @@ const { Content } = await render(book)
 ---
 
 <Layout>
-  <div>
-    <h3>Machine learning Papers</h3>
-  </div>
   <div class="container">
+    <a href="/">
+      <h3>Machine Learning Papers</h3>
+    </a>
     <h1 transition:name={`title-${slug}`}>{title}</h1>
     <code>{author}</code>
     <a href={url} rel="noopener noreferrer">
@@ -76,6 +76,14 @@ const { Content } = await render(book)
   h2 {
     margin: 50px 0 0 0;
     padding: 0;
+  }
+  h3{
+    font-family: "UnifrakturMaguntia", cursive;
+    color: #373737;
+    font-size: 1.8rem;
+  }
+  a{
+    text-decoration: none;
   }
   .container{
     padding: 2%;
