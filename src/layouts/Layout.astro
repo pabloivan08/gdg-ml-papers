@@ -16,7 +16,11 @@ import { ClientRouter } from "astro:transitions";
 		<link href="https://fonts.googleapis.com/css2?family=Libre+Bodoni:ital,wght@0,400..700;1,400..700&family=UnifrakturMaguntia&display=swap" rel="stylesheet">
 		<ClientRouter />
 	</head>
-	<body>
+	<>
 		<slot />
-	</body>
+	</>
+
+	<script type="module">
+		import '@astro/client/hydration';
+	</script>
 </html>
