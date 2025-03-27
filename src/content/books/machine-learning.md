@@ -30,7 +30,6 @@ Overfitting y underfitting.
 Interpretabilidad de modelos.
 Ética en ML y sesgo algorítmico.
 Impacto del deep learning y aprendizaje automático en la industria.
-Si tienes el paper específico en mente, puedo ayudarte a analizarlo en detalle. ¿Lo tienes disponible?
 
 
 
