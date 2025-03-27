@@ -1,11 +1,155 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
-
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+import Layout from '../layouts/Layout.astro'
+import { getCollection } from 'astro:content'
+import ShuffleTitle from '../components/ShuffleTitle.astro'
+const books = await getCollection('books')
 ---
 
 <Layout>
-	<Welcome />
+	<header>
+		<h1 class="title">Machine Learning</h1>
+		<div class="line"></div>
+		<ShuffleTitle />
+	</header>
+	<div class="line-container">
+		<div class="line"></div>
+	</div>
+
+	<section class="grid-container">
+		{books.map(book => {
+			const { slug, data } = book
+			const { title, author, description, url } = data
+			console.log(books)
+			return (
+				<div  class="book-container">
+					<a href={`./libro/${slug}`}>
+						<span class="author">{author}</span>
+						<h2 transition:name={`title-${slug}`}>{title}</h2>
+						<p>{description}</p>
+					</a>
+				</div>
+			)
+		})}
+	</section>
 </Layout>
+
+<style>
+	*, *::before, *::after {
+		box-sizing: border-box;
+	}
+	* {
+		margin: 0;
+		padding: 0;
+	}
+	html {
+		scroll-behavior: smooth;
+		font-size: 62.5%;
+	}
+	body {
+		line-height: 1.3;
+		-webkit-font-smoothing: antialiased;
+		font-optical-sizing: auto;
+		font-weight: <weight>;
+		font-style: normal;
+		background-color: #d9d9d9;
+		color: #373737;
+		margin: 0;
+	}
+	html, body {
+		height: 100dvh;
+	}
+	img, picture, canvas, video, svg {
+		display: block;
+		max-width: 100%;
+	}
+	p, h1, h2, h3, h4, h5, h6 {
+		overflow-wrap: break-word;
+		margin: 0;
+		padding: 0;
+	}
+	input, button, textarea, select {
+		font: inherit;
+	}
+	#root, #__next {
+		isolation: isolate;
+	}
+	p {
+		font-size: 2rem;
+		color: #5a5a5a;
+	}
+	h2 {
+		font-size: 2.6rem;
+		padding-bottom: 12px;
+	}
+	img, picture, canvas, video, svg {
+		display: block;
+		max-width: 100%;
+	}
+	p, h1, h2, h3, h4, h5, h6 {
+		overflow-wrap: break-word;
+		margin: 0;
+		padding: 0;
+	}
+	input, button, textarea, select {
+		font: inherit;
+	}
+	#root, #__next {
+		isolation: isolate;
+	}
+	p {
+		font-size: 2rem;
+		color: #5a5a5a;
+	}
+	h2 {
+		font-size: 2.6rem;
+		padding-bottom: 12px;
+	}
+	.title {
+		font-family: "UnifrakturMaguntia", cursive;
+		font-weight: 400;
+		font-style: normal;
+		font-size: 10vw;
+		line-height: 1;
+		padding-bottom: 12px;
+	}
+	header {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		padding: 40px 20px 10px;
+	}
+	a {
+		text-decoration: none;
+		color: #373737;
+	}
+	a:hover {
+		color: #131313;
+	}
+	.grid-container {
+		display: grid;
+		grid-template-columns: repeat(1, 1fr);
+		gap: 24px;
+		padding: 0 20px;
+	}
+	.book-container {
+		padding: 18px;
+		border: solid 2px #c3c3c3;
+	}
+	.book-container:hover {
+		border: solid 2px #373737;
+	}
+	.author {
+		font-size: 1.4rem;
+	}
+	.line{
+		width: 100%;
+		height: 2px;
+		background-color: #373737;
+		margin-bottom: 10px;
+	}
+	.line-container{
+		width: 100%;
+		padding: 0 20px 24px;
+	}
+</style>

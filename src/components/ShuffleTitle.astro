@@ -1,0 +1,102 @@
+---
+---
+
+<script>
+  const prefix = ''
+  const skills = [
+    'Google Developer Groups',
+    'Club de estudio de papers de ML'
+  ].map(s => `${s}`)
+  const delay = 50
+  const step = 1
+  const tail = 3
+  const timeout = 80
+
+  const title = document.createElement('h1')
+  title.style.margin = '0'
+  document.addEventListener("DOMContentLoaded", () => {
+    const header = document.querySelector("header");
+    if (header) {
+        header.appendChild(title)
+      }
+    });
+  
+  const colors = [
+    '#ea4435',
+    '#4285f5',
+    '#139d58',
+    '#fbbd05'
+  ]
+  function getRandomColor() {
+    return colors[Math.floor(Math.random() * colors.length)]
+  }
+  function getRandomChar() {
+    return String.fromCharCode(Math.random() * (127 - 33) + 33)
+  }
+  function getRandomColoredString(n: number) {
+    const fragment = document.createDocumentFragment()
+    for (let i = 0; i < n; i++) {
+      const char = document.createElement('span')
+      char.textContent = getRandomChar()
+      char.style.color = getRandomColor()
+      fragment.appendChild(char)
+    }
+    return fragment
+  }
+
+  const $ = {
+    text: '',
+    prefixP: -tail,
+    skillI: 0,
+    skillP: 0,
+    direction: 'forward',
+    delay,
+    step,
+  }
+
+  function render() {
+    const skill = skills[$.skillI]
+
+    if ($.step) {
+      $.step--
+    } else {
+      $.step = step
+      if ($.prefixP < prefix.length) {
+        if ($.prefixP >= 0) {
+          $.text += prefix[$.prefixP]
+        }
+        $.prefixP++
+      } else {
+        if ($.direction === 'forward') {
+          if ($.skillP < skill.length) {
+            $.text += skill[$.skillP]
+            $.skillP++
+          } else {
+            if ($.delay) {
+              $.delay--
+            } else {
+              $.direction = 'backward'
+              $.delay = delay
+            }
+          }
+        } else {
+          if ($.skillP > 0) {
+            $.text = $.text.slice(0, -1)
+            $.skillP--
+          } else {
+            $.skillI = ($.skillI + 1) % skills.length
+            $.direction = 'forward'
+          }
+        }
+      }
+    }
+
+    title.textContent = $.text
+    title.appendChild(getRandomColoredString(
+      $.prefixP < prefix.length ?
+      Math.min(tail, tail + $.prefixP):
+      Math.min(tail, skill.length - $.skillP)))
+    setTimeout(render, timeout)
+  }
+  setTimeout(render, 500)
+</script>
