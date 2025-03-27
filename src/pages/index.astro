@@ -23,7 +23,7 @@ const books = await getCollection('books')
 			return (
 				<div  class="book-container">
 					<a href={`./libro/${slug}`}>
-						<span class="author">{author}</span>
+						<cade class="author">{author}</cade>
 						<h2 transition:name={`title-${slug}`}>{title}</h2>
 						<p>{description}</p>
 					</a>
@@ -32,6 +32,7 @@ const books = await getCollection('books')
 		})}
 	</section>
 </Layout>
+
 
 <style>
 	*, *::before, *::after {
@@ -74,7 +75,7 @@ const books = await getCollection('books')
 		isolation: isolate;
 	}
 	p {
-		font-size: 2rem;
+		font-size: 1.8rem;
 		color: #5a5a5a;
 	}
 	h2 {
@@ -153,3 +154,7 @@ const books = await getCollection('books')
 		padding: 0 20px 24px;
 	}
 </style>
+
+<script type="module">
+  import '@astro/client/hydration';
+</script>
