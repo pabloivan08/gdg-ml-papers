@@ -1,8 +1,4 @@
-# Astro Starter Kit: Basics
-
-```sh
-npm create astro@latest -- --template basics
-```
+# ML Papers Starter Kit
 
 ## 🧞 Commands
 
