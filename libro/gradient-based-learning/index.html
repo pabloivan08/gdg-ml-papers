@@ -36,26 +36,107 @@
 	animation-duration: 180ms;
 	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
 	animation-fill-mode: both;
-	animation-name: astroFadeIn; }</style></head> <body>  <div class="container" data-astro-cid-kk57j3mo> <a href="../../" data-astro-cid-kk57j3mo> <h3 data-astro-cid-kk57j3mo>Machine Learning Papers</h3> </a> <h1 data-astro-cid-kk57j3mo data-astro-transition-scope="astro-yzcbpkil-1">Gradient-based learning applied to document recognition</h1> <code data-astro-cid-kk57j3mo>Yann Lecun / Léon Bottou / Yoshua Bengio / Patrick Haffner</code> <a href="https://sci-hub.se/10.1109/5.726791" rel="noopener noreferrer" data-astro-cid-kk57j3mo> <button class="btn" data-astro-cid-kk57j3mo> <span data-astro-cid-kk57j3mo>Leer paper completo</span> </button> </a> <code class="resume" data-astro-cid-kk57j3mo>Resumen</code> <div class="content" data-astro-cid-kk57j3mo> <ol>
-<li><strong>Uso de Redes Neuronales Convolucionales (CNNs)</strong></li>
+	animation-name: astroFadeIn; }</style></head> <body>  <div class="container" data-astro-cid-kk57j3mo> <a href="../../" data-astro-cid-kk57j3mo> <h3 data-astro-cid-kk57j3mo>Machine Learning Papers</h3> </a> <h1 data-astro-cid-kk57j3mo data-astro-transition-scope="astro-yzcbpkil-1">Gradient-based learning applied to document recognition</h1> <code data-astro-cid-kk57j3mo>Yann Lecun / Léon Bottou / Yoshua Bengio / Patrick Haffner</code> <a href="https://sci-hub.se/10.1109/5.726791" rel="noopener noreferrer" data-astro-cid-kk57j3mo> <button class="btn" data-astro-cid-kk57j3mo> <span data-astro-cid-kk57j3mo>Leer paper completo</span> </button> </a> <code class="resume" data-astro-cid-kk57j3mo>Resumen</code> <div class="content" data-astro-cid-kk57j3mo> <p>Este es un trabajo fundamental en el campo del Machine Learning y la Visión por Computadora. Explica cómo las técnicas de aprendizaje basadas en gradientes, especialmente aplicadas a redes neuronales, pueden resolver problemas complejos de reconocimiento de documentos, superando los métodos tradicionales que dependían mucho de la ingeniería manual de características.</p>
+<h2 id="puntos-clave-desglosados">Puntos Clave Desglosados:</h2>
+<p><strong>1. El Problema Principal:</strong> El reconocimiento automático de documentos (como cheques bancarios o texto manuscrito) es difícil debido a la enorme variabilidad en la escritura, las formas, el ruido, etc. Los métodos tradicionales requerían extraer manualmente “características” (features) relevantes de las imágenes, un proceso costoso, específico para cada tarea y a menudo subóptimo.</p>
+<p><strong>2. Aprendizaje Basado en Gradientes</strong> (Gradient-Based Learning): La idea central es usar algoritmos de aprendizaje que ajustan automáticamente los parámetros de un modelo (como una red neuronal) para minimizar una medida de error (función de pérdida o “loss function”). Esto se hace calculando el gradiente (la dirección de máximo cambio) de la función de pérdida con respecto a los parámetros y moviendo los parámetros en la dirección opuesta. El algoritmo clave para calcular eficientemente estos gradientes en redes neuronales multicapa es la Retropropagación (Backpropagation).</p>
+<p><strong>3. Redes Neuronales Convolucionales (CNNs):</strong> El paper introduce y defiende fuertemente las CNNs como una arquitectura de red neuronal ideal para procesar datos con estructura de rejilla, como las imágenes. Sus ideas clave son:</p>
+<ul>
+<li>
+<p>Campos Receptivos Locales (Local Receptive Fields): Las neuronas iniciales solo miran pequeñas regiones de la imagen de entrada, capturando características locales como bordes o esquinas.</p>
+</li>
+<li>
+<p>Pesos Compartidos (Shared Weights): El mismo detector de características (un conjunto de pesos) se aplica en toda la imagen. Si detectar un borde horizontal es útil en una parte de la imagen, probablemente también lo sea en otra. Esto reduce drásticamente la cantidad de parámetros a aprender y hace que la red sea más robusta a las traslaciones (invarianza a la traslación).</p>
+</li>
+<li>
+<p>Subsampling (o Pooling): Después de detectar características, se reduce la resolución espacial. Esto hace que la representación sea más robusta a pequeñas distorsiones y traslaciones, y reduce la carga computacional.</p>
+</li>
+<li>
+<p>Jerarquía de Características: Las capas sucesivas combinan características simples (bordes) para formar características más complejas (partes de objetos, objetos).</p>
+</li>
+<li>
+<p>LeNet-5: El paper describe en detalle la arquitectura LeNet-5, una CNN específica diseñada para el reconocimiento de dígitos manuscritos, que logró resultados de vanguardia en el conocido dataset MNIST.</p>
+</li>
+</ul>
+<p><strong>4. Resultados en MNIST:</strong> El paper presenta una comparación exhaustiva en el dataset MNIST (dígitos manuscritos). LeNet-5 (y variantes) superó significativamente a otros métodos de la época, incluyendo clasificadores lineales, K-Nearest Neighbors (KNN), Redes de Base Radial (RBF), y Máquinas de Vectores de Soporte (SVMs) iniciales, demostrando la superioridad del aprendizaje de características sobre las características diseñadas a mano o métodos menos estructurados para datos de imagen.</p>
+<p><strong>5. Entrenamiento Global (End-to-End):</strong> Para problemas reales como leer una palabra o el importe de un cheque, no basta con reconocer caracteres aislados. Hay que segmentar (separar caracteres), reconocerlos y usar contexto (como un diccionario o gramática). El paper argumenta que entrenar cada módulo por separado es subóptimo. Propone entrenar todo el sistema de principio a fin (end-to-end) para minimizar un error global. Si todo el sistema es diferenciable, se puede usar backpropagation a través de todos los módulos.</p>
+<p><strong>6. Redes Transformadoras de Grafos (Graph Transformer Networks - GTNs):</strong> Para manejar la complejidad de sistemas multimodulares donde la información no son solo vectores fijos, sino secuencias de hipótesis alternativas (representadas como grafos), el paper introduce las GTNs.</p>
+<ul>
+<li>
+<p>Los módulos (GTs) operan sobre grafos y producen grafos. Un grafo puede representar todas las posibles segmentaciones de una palabra, o todas las posibles interpretaciones de una secuencia reconocida.</p>
+</li>
+<li>
+<p>Se define una operación clave llamada Composición de Grafos, que permite combinar la información de diferentes módulos (por ejemplo, combinar las salidas del reconocedor de caracteres con un grafo que representa un diccionario).</p>
+</li>
+<li>
+<p>Crucialmente, si las operaciones dentro de los GTs son diferenciables respecto a los datos numéricos en los arcos del grafo y a los parámetros del módulo, se puede propagar gradientes a través de toda la red GTN y realizar un entrenamiento global.</p>
+</li>
+<li>
+<p>Se describen diferentes criterios de entrenamiento global para GTNs, incluyendo entrenamiento Viterbi (minimizar el error del “mejor camino”), entrenamiento Viterbi Discriminativo, y entrenamiento Forward Discriminativo (considera todos los caminos posibles, relacionado con maximizar la probabilidad posterior de la respuesta correcta).</p>
+</li>
+</ul>
+<p><strong>7. Aplicaciones Prácticas:</strong></p>
+<ul>
+<li>
+<p>Reconocimiento de Escritura Online: Se describe un sistema que procesa la trayectoria del lápiz (no solo la imagen final), usando CNNs y GTNs para reconocer palabras completas, entrenado globalmente.</p>
+</li>
+<li>
+<p>Sistema de Lectura de Cheques: Se detalla un sistema comercial (desplegado en bancos) que localiza el importe en un cheque, lo segmenta, lo reconoce usando LeNet-5 dentro de una GTN (combinando con una gramática para importes válidos), y calcula una confianza para decidir si aceptar la lectura o enviarla a un humano. Este sistema demostró la viabilidad y superioridad del enfoque en una aplicación real y compleja.</p>
+</li>
+</ul>
+<p><strong>Conclusión Principal del Paper:</strong> El mensaje central es que se pueden construir sistemas de reconocimiento de patrones mucho más potentes y precisos confiando más en el aprendizaje automático a partir de datos (usando arquitecturas adecuadas como CNNs y optimización basada en gradientes) y menos en la ingeniería manual de características y heurísticas. Las GTNs proporcionan un marco formal y potente para construir y entrenar globalmente sistemas complejos y modulares.</p>
+<h2 id="comparación-con-la-ia-y-el-machine-learning-actuales-post-1998">Comparación con la IA y el Machine Learning Actuales (Post-1998):</h2>
+<p>Este paper fue increíblemente influyente y adelantado a su tiempo. Muchas de sus ideas centrales son ahora pilares del Deep Learning moderno, pero el campo ha avanzado enormemente:</p>
+<p><strong>1. Escala:</strong> La diferencia más obvia es la escala.</p>
+<ul>
+<li>
+<p>Datos: MNIST tiene 60,000 imágenes de entrenamiento. Hoy se usan datasets como ImageNet (millones de imágenes) o enormes corpus de texto/código/multimedia.</p>
+</li>
+<li>
+<p>Modelos: LeNet-5 tenía ~60,000 parámetros. Los modelos modernos (como GPT-4, Llama, o grandes modelos de visión) tienen cientos de miles de millones o incluso billones de parámetros.</p>
+</li>
+<li>
+<p>Cómputo: El entrenamiento en 1998 se hacía en CPUs potentes de la época. Hoy, el Deep Learning depende masivamente de GPUs (Unidades de Procesamiento Gráfico) y TPUs (Unidades de Procesamiento Tensorial) que permiten paralelizar masivamente los cálculos.</p>
+</li>
+</ul>
+<p><strong>2. Arquitecturas:</strong></p>
+<ul>
+<li>
+<p>CNNs: Siguen siendo fundamentales para visión por computadora, pero las arquitecturas han evolucionado mucho (AlexNet, VGG, ResNet, Inception, EfficientNet, etc.) con capas más profundas, conexiones residuales, normalización por lotes (Batch Norm), etc.</p>
+</li>
+<li>
+<p>Transformers: La arquitectura Transformer, basada en mecanismos de Atención (Attention), ha revolucionado el Procesamiento del Lenguaje Natural (NLP) desde 2017 y se está adoptando cada vez más en visión (Vision Transformers - ViT) y otras áreas. Ha demostrado ser extremadamente eficaz para capturar dependencias a largo plazo.</p>
+</li>
+<li>
+<p>Otros: Han surgido arquitecturas para grafos (Graph Neural Networks - GNNs), modelos generativos (GANs, VAEs, Modelos de Difusión), etc.</p>
+</li>
+</ul>
+<p><strong>3. Entrenamiento y Optimización:</strong></p>
+<ul>
+<li>
+<p>Backpropagation: Sigue siendo el algoritmo central.</p>
+</li>
+<li>
+<p>Optimizadores: Mientras que el paper usa variantes de Descenso de Gradiente Estocástico (SGD) con ajustes (como Diagonal Levenberg-Marquardt), hoy en día son omnipresentes optimizadores adaptativos como Adam, AdamW, RMSProp, que ajustan la tasa de aprendizaje por parámetro.</p>
+</li>
+<li>
+<p>Regularización: Técnicas como Dropout, Batch Normalization, aumento de datos (Data Augmentation) mucho más sofisticado, y decaimiento de pesos (Weight Decay) son estándar para prevenir el sobreajuste en modelos masivos.</p>
+</li>
+<li>
+<p>Aprendizaje por Transferencia y Auto-supervisado: Es común pre-entrenar modelos gigantes en datasets masivos (a menudo sin etiquetas, usando aprendizaje auto-supervisado) y luego afinarlos (fine-tuning) para tareas específicas con menos datos. Esto era menos prevalente en 1998.</p>
+</li>
+</ul>
+<p><strong>4. Frameworks y Herramientas:</strong></p>
+<ul>
+<li>
+<p>Las GTNs eran un framework de investigación específico desarrollado por los autores. Hoy, el desarrollo se basa en librerías de Deep Learning como TensorFlow, PyTorch, JAX, que abstraen el cálculo de gradientes (diferenciación automática), la construcción de modelos y el despliegue en hardware especializado, haciendo mucho más fácil implementar y experimentar con arquitecturas complejas.</p>
+</li>
+<li>
+<p>El concepto de grafo computacional es central en estas librerías modernas, pero de una manera más general que las GTNs originales, que estaban más enfocadas en representar secuencias de hipótesis.</p>
+</li>
+</ul>
+<ol start="5">
+<li>Principio End-to-End: El principio de entrenar sistemas complejos de forma global (end-to-end) defendido en el paper es ahora la norma en Deep Learning. Sistemas que antes tenían múltiples etapas procesadas por separado (ej. detección de objetos, luego reconocimiento) ahora se entrenan a menudo como un único modelo diferenciable.</li>
 </ol>
-<p>Introducen una arquitectura llamada LeNet-5, una de las primeras CNNs diseñadas específicamente para el reconocimiento de caracteres escritos a mano (por ejemplo, en cheques bancarios).
-LeNet-5 combina capas convolucionales, subsampling (o pooling) y capas completamente conectadas.</p>
-<ol start="2">
-<li><strong>Aprendizaje Basado en Gradientes</strong></li>
-</ol>
-<p>Utilizan descenso de gradiente estocástico (SGD) y retropropagación para entrenar la red de manera eficiente.
-Argumentan que este método es más robusto y efectivo que los enfoques tradicionales de reconocimiento de patrones (como modelos basados en reglas o técnicas estadísticas clásicas).</p>
-<ol start="3">
-<li><strong>Aplicaciones al Reconocimiento de Documentos</strong></li>
-</ol>
-<p>Evalúan la efectividad de CNNs en la tarea de reconocimiento de caracteres en imágenes de documentos.
-Comparan su método con otras técnicas clásicas como Máquinas de Vectores de Soporte (SVMs), Redes Bayesianas y Modelos de Mezcla Gaussiana.</p>
-<ol start="4">
-<li><strong>Ventajas de las CNNs</strong></li>
-</ol>
-<p>Invariancia a la traslación, escalado y deformaciones menores, gracias a la combinación de convoluciones y pooling.
-Extracción automática de características, eliminando la necesidad de diseñar manualmente características para cada problema.
-Escalabilidad y generalización, demostrando buenos resultados en conjuntos de datos reales.</p>
-<p><strong>Impacto del Paper</strong></p>
-<p>Este paper fue uno de los primeros en demostrar la viabilidad del aprendizaje profundo aplicado al reconocimiento de imágenes y documentos. Su enfoque sentó las bases para los avances en visión por computadora, OCR (reconocimiento óptico de caracteres) y más tarde, en la revolución del deep learning con redes profundas.</p> </div> </div>  </body></html> 
+<h2 id="en-resumen">En Resumen:</h2>
+<p>El paper de LeCun et al. fue visionario. Estableció la eficacia del aprendizaje basado en gradientes con arquitecturas neuronales adecuadas (CNNs) para tareas perceptivas, y sentó las bases para el entrenamiento global de sistemas complejos (con GTNs como un precursor conceptual). El Deep Learning moderno ha llevado estas ideas a una escala inimaginable en 1998, desarrollando arquitecturas más potentes (Transformers), técnicas de entrenamiento más robustas, y herramientas mucho más accesibles, pero los principios fundamentales establecidos en este trabajo siguen siendo increíblemente relevantes.</p> </div> </div>  </body></html> 
