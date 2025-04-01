@@ -6,7 +6,7 @@ url: https://arxiv.org/pdf/1706.03762v6
 ---
 # Atention is all you need
 
-Ok, prepárate porque este paper ("Attention Is All You Need" de Google) fue como un terremoto en el mundo de la inteligencia artificial, especialmente en cómo las máquinas entienden y generan lenguaje (eso que llamamos Procesamiento del Lenguaje Natural o NLP). ¡Vamos a desglosarlo de forma sencilla!
+Ok, prepárate porque "Attention Is All You Need" de Google fue como un terremoto en el mundo de la inteligencia artificial, especialmente en cómo las máquinas entienden y generan lenguaje (eso que llamamos Procesamiento del Lenguaje Natural o NLP). ¡Vamos a desglosarlo de forma sencilla!
 
 ## Introducción: El Problemilla que Había Antes
 
@@ -25,8 +25,8 @@ Imagina que quieres que una máquina traduzca un texto largo. Antes de este pape
 El corazón del paper es una nueva arquitectura llamada **Transformer**. Olvídate del "paso a paso" de las RNNs.
 
 *   **Estructura General:** Mantiene la idea clásica de **Encoder-Decoder** (Codificador-Decodificador), muy usada en traducción:
-    *   **Encoder (Codificador):** Lee la frase de entrada (ej: en inglés) y la convierte en una representación numérica llena de significado (un conjunto de vectores). Piensa en él como el equipo que *entiende* la frase original.
-    *   **Decoder (Decodificador):** Toma esa representación numérica y genera la frase de salida (ej: en español), palabra por palabra. Es el equipo que *escribe* la traducción.
+    *   **Encoder:** Lee la frase de entrada (ej: en inglés) y la convierte en una representación numérica llena de significado (un conjunto de vectores). Piensa en él como el equipo que *entiende* la frase original.
+    *   **Decoder:** Toma esa representación numérica y genera la frase de salida (ej: en español), palabra por palabra. Es el equipo que *escribe* la traducción.
 
 *   **¿Qué hay Dentro? (Aquí viene lo nuevo):**
     *   Tanto el Encoder como el Decoder están formados por varias **capas idénticas** apiladas (en el paper usan 6).
@@ -45,24 +45,24 @@ Aquí está la magia. ¿Cómo funciona eso de "prestar atención"?
 
 Es el bloque de construcción básico. Imagina que tienes una palabra (la llamaremos **Query** o Consulta) y quieres saber cuánto debería importarle cada *otra* palabra de la frase.
 
-1.  **Queries, Keys, Values (Consultas, Claves, Valores):** Cada palabra en la secuencia tiene asociados tres vectores que el modelo aprende:
+1.  **Queries, Keys, Values:** Cada palabra en la secuencia tiene asociados tres vectores que el modelo aprende:
     *   **Query (Q):** Representa la palabra actual que está "preguntando" o buscando información. "Oye, ¿quién es relevante para mí?".
     *   **Key (K):** Representa una "etiqueta" o descriptor de una palabra. Responde a la Query diciendo "Yo soy relevante para esto".
     *   **Value (V):** Representa el contenido o significado real de esa palabra. Es la información que se usará si la palabra resulta relevante.
 
-2.  **El Proceso (¡Simplificado!):**
+2.  **El Proceso simplificado:**
     *   **Paso 1: Comparar:** La Query de una palabra se compara con la Key de *todas* las palabras (incluida ella misma). ¿Cómo? Calculando el **producto escalar** (dot product) entre el vector Q y cada vector K. Un producto escalar alto significa "¡Oye, esta Key (palabra) parece relevante para mi Query (palabra actual)!".
     *   **Paso 2: Escalar:** Los resultados se dividen por la raíz cuadrada de la dimensión de los vectores Key (`sqrt(dk)`). Esto es un truco técnico para que el entrenamiento sea más estable, ¡no te preocupes demasiado por el porqué ahora!
     *   **Paso 3: Ponderar (Softmax):** Se aplica una función **Softmax** a estos resultados escalados. Esto convierte las puntuaciones en porcentajes o "pesos" que suman 1. Un peso alto significa "esta palabra es súper importante", un peso bajo significa "meh, no tanto".
     *   **Paso 4: Combinar:** Se multiplican los pesos obtenidos por los vectores **Value (V)** de cada palabra y se suman todos. El resultado es un nuevo vector para la palabra original, que ahora contiene información ponderada de todas las palabras relevantes de la frase. ¡Es como si la palabra hubiera "absorbido" contexto!
 
-### Self-Attention (Auto-Atención)
+### Self-Attention
 
 Es simplemente aplicar el mecanismo anterior donde las **Queries, Keys y Values provienen de la *misma* secuencia de entrada**.
 
 *   **¿Para qué sirve?** Permite que cada palabra en la frase de entrada (o salida) preste atención a todas las demás palabras *en esa misma frase*. Así, puede entender el contexto interno. Por ejemplo, en "El gato persiguió al perro porque *estaba* cansado", la auto-atención podría ayudar a "estaba" a determinar si se refiere al gato o al perro mirando las otras palabras.
 
-### Multi-Head Attention (Atención Multi-Cabeza)
+### Multi-Head Attention
 
 En lugar de hacer la atención una sola vez con un conjunto de Q, K, V, ¡lo hacen **varias veces en paralelo** (en el paper usan 8 "cabezas")!
 
@@ -80,7 +80,7 @@ Si procesamos todo a la vez, ¿cómo sabe el modelo si una palabra va antes o de
 
 Como el Transformer no tiene recurrencia ni convoluciones que naturalmente procesen el orden, necesita una forma de **inyectar información sobre la posición** de cada palabra.
 
-*   **La Solución: Positional Encodings (Codificaciones Posicionales)**
+*   **La Solución: Positional Encodings**
     *   Antes de meter los vectores de las palabras (embeddings) en la primera capa, se les **suma** otro vector: el *Positional Encoding*.
     *   Este vector **no se aprende**, se calcula usando una fórmula fija con funciones seno y coseno de diferentes frecuencias.
     *   La fórmula está diseñada para que:
