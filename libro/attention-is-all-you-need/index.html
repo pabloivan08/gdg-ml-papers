@@ -36,17 +36,16 @@
 	animation-duration: 180ms;
 	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
 	animation-fill-mode: both;
-	animation-name: astroFadeIn; }</style></head> <body>  <div class="container" data-astro-cid-kk57j3mo> <a href="../../" data-astro-cid-kk57j3mo> <h3 data-astro-cid-kk57j3mo>Machine Learning Papers</h3> </a> <h1 data-astro-cid-kk57j3mo data-astro-transition-scope="astro-yzcbpkil-1">Atention is all you need</h1> <code data-astro-cid-kk57j3mo>Ashish Vaswani / Noam Shazeer / Niki Parmar / Jakob Uszkoreit / Llion Jones / Aidan N. Gomez / Łukasz Kaiser / Illia Polosukhin</code> <a href="https://arxiv.org/pdf/1706.03762v6" rel="noopener noreferrer" data-astro-cid-kk57j3mo> <button class="btn" data-astro-cid-kk57j3mo> <span data-astro-cid-kk57j3mo>Leer paper completo</span> </button> </a> <code class="resume" data-astro-cid-kk57j3mo>Resumen</code> <div class="content" data-astro-cid-kk57j3mo> <h1 id="atention-is-all-you-need">Atention is all you need</h1>
-<p>Ok, prepárate porque “Attention Is All You Need” de Google fue como un terremoto en el mundo de la inteligencia artificial, especialmente en cómo las máquinas entienden y generan lenguaje (eso que llamamos Procesamiento del Lenguaje Natural o NLP). ¡Vamos a desglosarlo de forma sencilla!</p>
-<h2 id="introducción-el-problemilla-que-había-antes">Introducción: El Problemilla que Había Antes</h2>
+	animation-name: astroFadeIn; }</style></head> <body>  <div class="container" data-astro-cid-kk57j3mo> <a href="../../" data-astro-cid-kk57j3mo> <h3 data-astro-cid-kk57j3mo>Machine Learning Papers</h3> </a> <h1 data-astro-cid-kk57j3mo data-astro-transition-scope="astro-yzcbpkil-1">Atention is all you need</h1> <code data-astro-cid-kk57j3mo>Ashish Vaswani / Noam Shazeer / Niki Parmar / Jakob Uszkoreit / Llion Jones / Aidan N. Gomez / Łukasz Kaiser / Illia Polosukhin</code> <a href="https://arxiv.org/pdf/1706.03762v6" rel="noopener noreferrer" data-astro-cid-kk57j3mo> <button class="btn" data-astro-cid-kk57j3mo> <span data-astro-cid-kk57j3mo>Leer paper completo</span> </button> </a> <code class="resume" data-astro-cid-kk57j3mo>Resumen</code> <div class="content" data-astro-cid-kk57j3mo> <p>Prepárate porque este paper de Google fue como un terremoto en el mundo de la inteligencia artificial, especialmente en cómo las máquinas entienden y generan lenguaje (eso que llamamos Procesamiento del Lenguaje Natural o NLP).</p>
+<h2 id="el-problema-que-había">El problema que había</h2>
 <p>Imagina que quieres que una máquina traduzca un texto largo. Antes de este paper, los modelos más populares eran las <strong>Redes Neuronales Recurrentes (RNNs)</strong>, como las LSTMs o GRUs.</p>
 <ul>
 <li><strong>¿Cómo funcionaban?</strong> Como si leyeran palabra por palabra, en orden. Tenían una especie de “memoria” a corto plazo para recordar lo que acababan de leer.</li>
-<li><strong>El Problema:</strong>
+<li><strong>Retos a superar:</strong>
 <ol>
 <li><strong>Lentitud:</strong> Tenían que procesar las palabras una tras otra. ¡No podías procesar toda la frase de golpe! Esto hacía el entrenamiento súper lento, especialmente con textos largos. Piensa en leer una novela palabra por palabra sin poder saltar ni procesar párrafos enteros a la vez.</li>
-<li><strong>Olvidadizas:</strong> Aunque tenían memoria, les costaba un montón recordar la conexión entre palabras que estaban muy separadas en una frase larga (las famosas “dependencias a largo plazo”). Si una palabra al final de un párrafo dependía de una al principio, la RNN a menudo ya se había “olvidado”.</li>
-<li><strong>CNNs (Convolucionales):</strong> También se usaron, eran más rápidas para algunas cosas, pero también tenían limitaciones para captar relaciones a distancia.</li>
+<li><strong>Olvidadizas:</strong> Aunque tenían memoria, les costaba un montón recordar la conexión entre palabras que estaban muy separadas en una frase larga, las famosas “dependencias a largo plazo”. Si una palabra al final de un párrafo dependía de una al principio, la RNN a menudo ya se había “olvidado”.</li>
+<li><strong>CNN:</strong> Eran más rápidas para algunas cosas, pero tenían limitaciones para captar relaciones a distancia.</li>
 </ol>
 </li>
 </ul>
@@ -57,34 +56,34 @@
 <li>
 <p><strong>Estructura General:</strong> Mantiene la idea clásica de <strong>Encoder-Decoder</strong> (Codificador-Decodificador), muy usada en traducción:</p>
 <ul>
-<li><strong>Encoder:</strong> Lee la frase de entrada (ej: en inglés) y la convierte en una representación numérica llena de significado (un conjunto de vectores). Piensa en él como el equipo que <em>entiende</em> la frase original.</li>
-<li><strong>Decoder:</strong> Toma esa representación numérica y genera la frase de salida (ej: en español), palabra por palabra. Es el equipo que <em>escribe</em> la traducción.</li>
+<li><strong>Encoder:</strong> Lee la frase de entrada y la convierte en una representación numérica llena de significado, un conjunto de vectores. Piensa en él como el equipo que <em>entiende</em> la frase original.</li>
+<li><strong>Decoder:</strong> Toma esa representación numérica y genera la frase de salida, palabra por palabra. Es el equipo que <em>escribe</em> la traducción.</li>
 </ul>
 </li>
 <li>
-<p><strong>¿Qué hay Dentro? (Aquí viene lo nuevo):</strong></p>
+<p><strong>¿Qué hay Dentro?:</strong></p>
 <ul>
 <li>Tanto el Encoder como el Decoder están formados por varias <strong>capas idénticas</strong> apiladas (en el paper usan 6).</li>
 <li>Cada capa tiene <strong>dos sub-capas principales</strong>:
 <ol>
-<li><strong>Mecanismo de Multi-Head Self-Attention:</strong> ¡La estrella del show! Hablaremos de esto en detalle. Básicamente, permite a cada palabra “mirar” a todas las otras palabras de la frase (incluso a sí misma) para entender mejor su contexto.</li>
-<li><strong>Feed-Forward Network (Red Neuronal Simple):</strong> Una red neuronal normalita que procesa la salida de la capa de atención de forma independiente para cada posición.</li>
+<li><strong>Mecanismo de Multi-Head Self-Attention:</strong> ¡La estrella del show! Básicamente, permite a cada palabra “mirar” a todas las otras palabras de la frase, incluso a sí misma, para entender mejor su contexto.</li>
+<li><strong>Feed-Forward Network:</strong> Una red neuronal normalita que procesa la salida de la capa de atención de forma independiente para cada posición.</li>
 </ol>
 </li>
-<li><strong>Trucos extra:</strong> Usan <strong>conexiones residuales</strong> (“atajos” que ayudan a que la información fluya mejor y el entrenamiento sea más fácil) y <strong>normalización de capas</strong> (ayuda a estabilizar los números durante el entrenamiento).</li>
+<li>Usan <strong>conexiones residuales</strong>, “atajos” que ayudan a que la información fluya mejor y el entrenamiento sea más fácil y <strong>normalización de capas</strong> que ayuda a estabilizar los números durante el entrenamiento.</li>
 </ul>
 </li>
 </ul>
-<p><strong>La Gran Diferencia:</strong> ¡No hay recurrencia! Todas las palabras se procesan <em>a la vez</em>. La forma en que el modelo entiende las relaciones entre palabras es <em>únicamente</em> a través del mecanismo de atención.</p>
-<h2 id="mecanismo-de-atención-la-clave-de-todo">Mecanismo de Atención: ¡La Clave de Todo!</h2>
-<p>Aquí está la magia. ¿Cómo funciona eso de “prestar atención”?</p>
-<h3 id="scaled-dot-product-attention-atención-por-producto-escalar-escalado">Scaled Dot-Product Attention (Atención por Producto Escalar Escalado)</h3>
-<p>Es el bloque de construcción básico. Imagina que tienes una palabra (la llamaremos <strong>Query</strong> o Consulta) y quieres saber cuánto debería importarle cada <em>otra</em> palabra de la frase.</p>
+<p>La Gran Diferencia: ¡No hay recurrencia! Todas las palabras se procesan <em>a la vez</em>. La forma en que el modelo entiende las relaciones entre palabras es <em>únicamente</em> a través del mecanismo de atención.</p>
+<h2 id="mecanismo-de-atención">Mecanismo de Atención:</h2>
+<p>¿Cómo funciona eso de “prestar atención”?</p>
+<h3 id="scaled-dot-product-attention">Scaled Dot-Product Attention</h3>
+<p>Es el bloque de construcción básico. Imagina que tienes una palabra ( <strong>Query</strong>) y quieres saber cuánto debería importarle cada <em>otra</em> palabra de la frase.</p>
 <ol>
 <li>
 <p><strong>Queries, Keys, Values:</strong> Cada palabra en la secuencia tiene asociados tres vectores que el modelo aprende:</p>
 <ul>
-<li><strong>Query (Q):</strong> Representa la palabra actual que está “preguntando” o buscando información. “Oye, ¿quién es relevante para mí?”.</li>
+<li><strong>Query (Q):</strong> Representa la palabra actual que está “preguntando” o buscando información. “¿quién es relevante para mí?”.</li>
 <li><strong>Key (K):</strong> Representa una “etiqueta” o descriptor de una palabra. Responde a la Query diciendo “Yo soy relevante para esto”.</li>
 <li><strong>Value (V):</strong> Representa el contenido o significado real de esa palabra. Es la información que se usará si la palabra resulta relevante.</li>
 </ul>
@@ -92,10 +91,10 @@
 <li>
 <p><strong>El Proceso simplificado:</strong></p>
 <ul>
-<li><strong>Paso 1: Comparar:</strong> La Query de una palabra se compara con la Key de <em>todas</em> las palabras (incluida ella misma). ¿Cómo? Calculando el <strong>producto escalar</strong> (dot product) entre el vector Q y cada vector K. Un producto escalar alto significa “¡Oye, esta Key (palabra) parece relevante para mi Query (palabra actual)!”.</li>
-<li><strong>Paso 2: Escalar:</strong> Los resultados se dividen por la raíz cuadrada de la dimensión de los vectores Key (<code>sqrt(dk)</code>). Esto es un truco técnico para que el entrenamiento sea más estable, ¡no te preocupes demasiado por el porqué ahora!</li>
-<li><strong>Paso 3: Ponderar (Softmax):</strong> Se aplica una función <strong>Softmax</strong> a estos resultados escalados. Esto convierte las puntuaciones en porcentajes o “pesos” que suman 1. Un peso alto significa “esta palabra es súper importante”, un peso bajo significa “meh, no tanto”.</li>
-<li><strong>Paso 4: Combinar:</strong> Se multiplican los pesos obtenidos por los vectores <strong>Value (V)</strong> de cada palabra y se suman todos. El resultado es un nuevo vector para la palabra original, que ahora contiene información ponderada de todas las palabras relevantes de la frase. ¡Es como si la palabra hubiera “absorbido” contexto!</li>
+<li><strong>Paso 1: Comparar:</strong> La Query de una palabra se compara con la Key de <em>todas</em> las palabras (incluida ella misma). ¿Cómo? Calculando el <strong>producto escalar</strong> entre el vector Q y cada vector K. Un producto escalar alto significa “¡Oye, esta Key parece relevante para mi Query!”.</li>
+<li><strong>Paso 2: Escalar:</strong> Los resultados se dividen por la raíz cuadrada de la dimensión de los vectores Key (<code>sqrt(dk)</code>). Esto es un truco técnico para que el entrenamiento sea más estable.</li>
+<li><strong>Paso 3: Softmax:</strong> Se aplica una función <strong>Softmax</strong> a estos resultados escalados. Esto convierte las puntuaciones en porcentajes o “pesos” que suman 1. Un peso alto significa “esta palabra es importante”, un peso bajo significa “meh, esta no tanto”.</li>
+<li><strong>Paso 4: Combinar:</strong> Se multiplican los pesos obtenidos por los vectores <strong>Value (V)</strong> de cada palabra y se suman todos. El resultado es un nuevo vector para la palabra original, que ahora contiene información ponderada de todas las palabras relevantes de la frase. Es como si la palabra hubiera “absorbido” contexto.</li>
 </ul>
 </li>
 </ol>
@@ -105,18 +104,18 @@
 <li><strong>¿Para qué sirve?</strong> Permite que cada palabra en la frase de entrada (o salida) preste atención a todas las demás palabras <em>en esa misma frase</em>. Así, puede entender el contexto interno. Por ejemplo, en “El gato persiguió al perro porque <em>estaba</em> cansado”, la auto-atención podría ayudar a “estaba” a determinar si se refiere al gato o al perro mirando las otras palabras.</li>
 </ul>
 <h3 id="multi-head-attention">Multi-Head Attention</h3>
-<p>En lugar de hacer la atención una sola vez con un conjunto de Q, K, V, ¡lo hacen <strong>varias veces en paralelo</strong> (en el paper usan 8 “cabezas”)!</p>
+<p>En lugar de hacer la atención una sola vez con un conjunto de Q, K, V, lo hacen <strong>varias veces en paralelo</strong> (en el paper usan 8 “cabezas”).</p>
 <ul>
 <li><strong>¿Por qué?</strong> Cada “cabeza” aprende a enfocarse en <strong>diferentes tipos de relaciones</strong> o aspectos de la frase. Una cabeza podría fijarse en relaciones sintácticas (sujeto-verbo), otra en relaciones semánticas (sinónimos), otra en conexiones a larga distancia, etc.</li>
 <li><strong>¿Cómo funciona?</strong>
 <ol>
 <li>Los vectores Q, K, V originales se dividen y transforman linealmente para cada cabeza.</li>
 <li>Cada cabeza realiza el “Scaled Dot-Product Attention” por separado y en paralelo.</li>
-<li>Los resultados de todas las cabezas se concatenan (se pegan) y se vuelven a transformar linealmente para obtener el resultado final.</li>
+<li>Los resultados de todas las cabezas se concatenan y se vuelven a transformar linealmente para obtener el resultado final.</li>
 </ol>
 </li>
 </ul>
-<p><strong>Analogía:</strong> Imagina que estás analizando una escena compleja. En lugar de tener una sola persona mirando, tienes 8 expertos (cabezas). Uno es experto en colores, otro en formas, otro en movimiento… Cada uno se fija en lo suyo. Al final, juntan sus informes (concatenan) para tener una comprensión completa y rica de la escena.</p>
+<p><strong>Analogía:</strong> Imagina que estás analizando una escena compleja. En lugar de tener una sola persona mirando, tienes 8 expertos (cabezas). Uno es experto en colores, otro en formas, otro en movimiento… Cada uno se fija en lo suyo. Al final, juntan sus informes para tener una comprensión completa y rica de la escena.</p>
 <h2 id="positional-encoding-y-el-orden-de-las-palabras">Positional Encoding: ¿Y el Orden de las Palabras?</h2>
 <p>Si procesamos todo a la vez, ¿cómo sabe el modelo si una palabra va antes o después? ¡El orden importa! (“El perro muerde al hombre” vs. “El hombre muerde al perro”).</p>
 <p>Como el Transformer no tiene recurrencia ni convoluciones que naturalmente procesen el orden, necesita una forma de <strong>inyectar información sobre la posición</strong> de cada palabra.</p>
@@ -135,18 +134,18 @@
 </li>
 </ul>
 <p><strong>En resumen:</strong> Es como añadirle a cada palabra una “etiqueta GPS” matemática que le dice al modelo dónde está ubicada en la secuencia.</p>
-<h2 id="ventajas-del-transformer-por-qué-fue-un-bombazo">Ventajas del Transformer: ¿Por Qué Fue un Bombazo?</h2>
+<h2 id="ventajas-del-transformer">Ventajas del Transformer:</h2>
 <p>Comparado con las RNNs y CNNs anteriores, el Transformer tenía varias ventajas clave:</p>
 <ol>
 <li><strong>¡Paralelización Total!</strong> Como cada palabra se procesa en paralelo gracias a la atención, se puede aprovechar mucho mejor el hardware moderno (GPUs/TPUs). Esto significa <strong>entrenamientos muchísimo más rápidos</strong>.</li>
 <li><strong>Mejor Captura de Dependencias a Largo Plazo:</strong> La atención conecta directamente cualquier par de palabras en la frase, sin importar lo lejos que estén. La “distancia” que tiene que recorrer la información entre dos palabras es constante (O(1)), mientras que en una RNN era proporcional a la distancia (O(n)). ¡Adiós al problema de olvidar!</li>
-<li><strong>Rendimiento Superior (Estado del Arte):</strong> En las tareas de traducción en las que lo probaron (WMT Inglés-Alemán e Inglés-Francés), superó a todos los modelos anteriores, ¡y con menos tiempo de entrenamiento!</li>
-<li><strong>Generalización:</strong> Aunque nació para traducción, la arquitectura resultó ser muy potente y se adaptó luego a muchísimas otras tareas de NLP (resumen de texto, respuesta a preguntas, generación de texto como GPT, clasificación como BERT…).</li>
+<li><strong>Rendimiento Superior (Estado del Arte):</strong> En las tareas de traducción en las que lo probaron (Inglés-Alemán e Inglés-Francés), superó a todos los modelos anteriores y con menos tiempo de entrenamiento.</li>
+<li><strong>Generalización:</strong> Aunque nació para traducción, la arquitectura resultó ser muy potente y se adaptó luego a muchísimas otras tareas de NLP como resumir texto, responder preguntas, generación de texto, clasificación, etc.</li>
 </ol>
 <h2 id="resultados-y-conclusiones-funcionó">Resultados y Conclusiones: ¡Funcionó!</h2>
 <ul>
 <li><strong>Resultados Concretos:</strong> El paper mostró mejoras significativas en las puntuaciones BLEU (una métrica común para evaluar traducción automática) en los datasets estándar WMT 2014. Establecieron un nuevo <em>estado del arte</em>.</li>
-<li><strong>Impacto:</strong> El Transformer no solo fue un modelo exitoso, sino que <strong>cambió el paradigma</strong> en NLP. Casi todos los modelos grandes y potentes que vinieron después (BERT, GPT-2, GPT-3, T5, etc.) se basan en la arquitectura Transformer.</li>
+<li><strong>Impacto:</strong> El Transformer no solo fue un modelo exitoso, sino que <strong>cambió el paradigma</strong> en NLP. Casi todos los modelos grandes y potentes que vinieron después se basan en la arquitectura Transformer.</li>
 <li><strong>Conclusión del Paper:</strong> Demostraron que una arquitectura basada <em>únicamente</em> en atención, sin recurrencia ni convoluciones para manejar la secuencia, no solo era viable sino superior para tareas de traducción, abriendo la puerta a futuras investigaciones y modelos más potentes.</li>
 </ul>
 <p><strong>En pocas palabras:</strong> El paper “Attention Is All You Need” introdujo el Transformer, un modelo que revolucionó el NLP al reemplazar la recurrencia secuencial con la atención paralela, permitiendo entrenamientos más rápidos y una mejor comprensión de las relaciones entre palabras, incluso a larga distancia. ¡Y todo empezó con esa simple idea: la atención es todo lo que necesitas!</p> </div> </div>  </body></html> 
